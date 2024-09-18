@@ -11,20 +11,19 @@ def process_with_ollama(text, model_prompt):
     # Send the prompt to Ollama and get the response
     response = ollama.generate(model="llama3.1", prompt=full_prompt)
 
-    # Extract the relevant response content, assuming Ollama's output is a dict with 'output' key
     output = response.get('response', 'No response received')
 
     results = []
 
     results.append({
-        "full_prompt": full_prompt,
+        "input": text,
         "output": output
     })
 
     return results
 
 if __name__ == '__main__':
-    # Define the prompt you want to use with each text element
+
     df = pd.read_csv("EV_reviews.csv", on_bad_lines='skip', engine='python')
 
     model_prompt = "Translate the following text to English and then Determine the sentiment of every text and provide a sentiment label for every text as negative,  positive , neutral"
